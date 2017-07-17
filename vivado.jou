@@ -1,0 +1,16 @@
+#-----------------------------------------------------------
+# Vivado v2017.1 (64-bit)
+# SW Build 1846317 on Fri Apr 14 18:55:03 MDT 2017
+# IP Build 1846188 on Fri Apr 14 20:52:08 MDT 2017
+# Start of session at: Sun Jul 16 21:48:10 2017
+# Process ID: 7376
+# Current directory: C:/Users/Dsniel Chunn/Documents/Current Classes/ECEN340/Labs/Calculator/8-bit-calcualtor
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent9696 C:\Users\Dsniel Chunn\Documents\Current Classes\ECEN340\Labs\Calculator\8-bit-calcualtor\Calculator.xpr
+# Log file: C:/Users/Dsniel Chunn/Documents/Current Classes/ECEN340/Labs/Calculator/8-bit-calcualtor/vivado.log
+# Journal file: C:/Users/Dsniel Chunn/Documents/Current Classes/ECEN340/Labs/Calculator/8-bit-calcualtor\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {C:/Users/Dsniel Chunn/Documents/Current Classes/ECEN340/Labs/Calculator/8-bit-calcualtor/Calculator.xpr}
+update_compile_order -fileset sources_1
+add_files -norecurse {{C:/Users/Dsniel Chunn/Documents/Current Classes/ECEN340/Labs/Calculator/8-bit-calcualtor/Calculator.srcs/sources_1/new/LCD_display.v}}
+update_compile_order -fileset sources_1

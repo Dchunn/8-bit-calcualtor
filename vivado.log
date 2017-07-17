@@ -1,0 +1,26 @@
+#-----------------------------------------------------------
+# Vivado v2017.1 (64-bit)
+# SW Build 1846317 on Fri Apr 14 18:55:03 MDT 2017
+# IP Build 1846188 on Fri Apr 14 20:52:08 MDT 2017
+# Start of session at: Sun Jul 16 21:48:10 2017
+# Process ID: 7376
+# Current directory: C:/Users/Dsniel Chunn/Documents/Current Classes/ECEN340/Labs/Calculator/8-bit-calcualtor
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent9696 C:\Users\Dsniel Chunn\Documents\Current Classes\ECEN340\Labs\Calculator\8-bit-calcualtor\Calculator.xpr
+# Log file: C:/Users/Dsniel Chunn/Documents/Current Classes/ECEN340/Labs/Calculator/8-bit-calcualtor/vivado.log
+# Journal file: C:/Users/Dsniel Chunn/Documents/Current Classes/ECEN340/Labs/Calculator/8-bit-calcualtor\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {C:/Users/Dsniel Chunn/Documents/Current Classes/ECEN340/Labs/Calculator/8-bit-calcualtor/Calculator.xpr}
+INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter.
+Current project path is 'C:/Users/Dsniel Chunn/Documents/Current Classes/ECEN340/Labs/Calculator/8-bit-calcualtor'
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2017.1/data/ip'.
+open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 750.051 ; gain = 34.500
+update_compile_order -fileset sources_1
+add_files -norecurse {{C:/Users/Dsniel Chunn/Documents/Current Classes/ECEN340/Labs/Calculator/8-bit-calcualtor/Calculator.srcs/sources_1/new/LCD_display.v}}
+update_compile_order -fileset sources_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Jul 16 21:50:45 2017...
