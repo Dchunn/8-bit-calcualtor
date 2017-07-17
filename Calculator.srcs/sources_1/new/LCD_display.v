@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Name: Daniel Chunn
+// Class: ECEN 340
 // 
 // Create Date: 07/13/2017 09:37:14 AM
 // Design Name: 
@@ -39,19 +39,17 @@ module LCD_display(
 
    //lcd input signals
    //signal on connector JA
-    output [7:0] JA;							//output bus, used for data transfer (DB)
+    output reg [7:0] JA;							//output bus, used for data transfer (DB)
    // signal on connector JB
    //JB[4]register selection pin  (RS)
    //JB[5]selects between read/write modes (RW)
    //JB[6]enable signal for starting the data read/write (E)
-    output [6:4] JB;
+    output reg [6:4] JB;
 
 
 	// ===========================================================================
 	// 							  Parameters, Regsiters, and Wires
 	// ===========================================================================
-	wire [7:0] JA;
-	wire [6:4] JB;
 
    //LCD control state machine
 	parameter [3:0] stFunctionSet = 0,						// Initialization states
@@ -88,8 +86,7 @@ module LCD_display(
 	reg oneUSClk;													// Signal is treated as a 1 MHz clock	
 	reg [3:0] stCur = stPowerOn_Delay;						// LCD control state machine
 	reg [3:0] stNext;
-	reg [5:0] items = 5'b00100;
-	reg [5:0] check = 5'b00000;
+	reg [5:0] items = 5'b00011;
 	reg check_button = 1'b0;
 	wire writeDone;											// Command set finish
 
@@ -104,7 +101,7 @@ module LCD_display(
 	end
 
 	reg [5:0] lcd_cmd_ptr;
-	always @ (posedge oneUSClk)
+	always
         begin
         if((display == 1'b1) && (check_button == 1'b0))
         begin
@@ -186,7 +183,7 @@ module LCD_display(
             end
             else if (num == 4'hF)
             begin
-                  items <= 5'b00100;
+                  items <= 5'b00011;
             end
          end //end if display
          else if ((display == 1'b0) && (check_button == 1'b1))
@@ -251,36 +248,18 @@ module LCD_display(
 
 	// writeDone goes high when all commands have been run	
 	assign writeDone = (lcd_cmd_ptr == 5'd23) ? 1'b1 : 1'b0;
-
-    always @(posedge oneUSClk) begin
-        if((stNext == stInitDne || stNext == stDisplayCtrlSet || stNext == stDisplayClear) && writeDone == 1'b0) begin
-            check <= check + 1'b1;
-        end
-        else if(stCur == stPowerOn_Delay || stNext == stPowerOn_Delay || num == 4'hF) begin
-            check <= 5'b00000;
-        end
-        else if(check == items)
-        begin
-            check <= check;
-        end
-        else begin
-            check <= check;
-        end
-        
-    end
 	
 	// Increments the pointer so the statemachine goes through the commands
 	always @(posedge oneUSClk) begin
+	        if(lcd_cmd_ptr == items) begin
+               lcd_cmd_ptr <= lcd_cmd_ptr;
+            end
 			if((stNext == stInitDne || stNext == stDisplayCtrlSet || stNext == stDisplayClear) && writeDone == 1'b0) begin
 					lcd_cmd_ptr <= lcd_cmd_ptr + 1'b1;
 			end
 			else if(stCur == stPowerOn_Delay || stNext == stPowerOn_Delay || num == 4'hF) begin
 					lcd_cmd_ptr <= 5'b00000;
 			end
-			else if(check == items)
-            begin
-                lcd_cmd_ptr <= lcd_cmd_ptr;
-            end
 			else begin
 					lcd_cmd_ptr <= lcd_cmd_ptr;
 			end
@@ -300,6 +279,8 @@ module LCD_display(
 
 	// This process generates the sequence of outputs needed to initialize and write to the LCD screen
 	always @(stCur or delayOK or writeDone or lcd_cmd_ptr) begin
+	       if (lcd_cmd_ptr != items)
+	       begin
 			case (stCur)
 				// Delays the state machine for 20ms which is needed for proper startup.
 				stPowerOn_Delay : begin
@@ -385,13 +366,19 @@ module LCD_display(
 				default : stNext <= stPowerOn_Delay;
 
 			endcase
+	   end
 	end
 		
 		
 	// Assign outputs
-	assign JB[4] = LCD_CMDS[lcd_cmd_ptr][9];
-	assign JB[5] = LCD_CMDS[lcd_cmd_ptr][8];
-	assign JA = LCD_CMDS[lcd_cmd_ptr][7:0];
-	assign JB[6] = (stCur == stFunctionSet || stCur == stDisplayCtrlSet || stCur == stDisplayClear || stCur == stActWr) ? 1'b1 : 1'b0;
-
+	always
+	begin
+	if(lcd_cmd_ptr != items)
+	    begin
+	       JB[4] = LCD_CMDS[lcd_cmd_ptr][9];
+	       JB[5] = LCD_CMDS[lcd_cmd_ptr][8];
+	       JA = LCD_CMDS[lcd_cmd_ptr][7:0];
+	       JB[6] = (stCur == stFunctionSet || stCur == stDisplayCtrlSet || stCur == stDisplayClear || stCur == stActWr) ? 1'b1 : 1'b0;
+        end
+    end
 endmodule
